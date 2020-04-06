@@ -19,6 +19,7 @@
 
 package org.wso2.carbon.identity.custom.callback.userstore;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.application.authentication.framework.context.AuthenticationContext;
@@ -34,6 +35,7 @@ import org.wso2.carbon.user.core.config.UserStorePreferenceOrderSupplier;
 import org.wso2.carbon.user.core.service.RealmService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -83,15 +85,16 @@ public class SimpleUserStoreOrderCallbackHandler implements UserStorePreferenceO
 
         List<String> userStoreOrder = new ArrayList<String>();
 
-        String specialSPPrefix = getSpecialSPPrefix();
-        String specialUserStoreDomainName = getSpecialUserStoreDomainName();
-
-        if (spName.startsWith(specialSPPrefix)) {
-            userStoreOrder.add(specialUserStoreDomainName);
-
+        String specialSP = getSpecialSP();
+        String specialUserStoreDomainNames = getSpecialUserStoreDomainNames();
+        String[] domains = specialUserStoreDomainNames.split(",");
+        if (StringUtils.equals(spName, specialSP)) {
+            for (String allowedDomain : domains) {
+                userStoreOrder.add(allowedDomain);
+            }
         } else {
             for (String domainName : domainNames) {
-                if (!domainName.equals(specialUserStoreDomainName)) {
+                if (!Arrays.asList(domains).contains(domainName)) {
                     userStoreOrder.add(domainName);
                 }
             }
@@ -136,14 +139,14 @@ public class SimpleUserStoreOrderCallbackHandler implements UserStorePreferenceO
         return domainNames;
     }
 
-    protected String getSpecialUserStoreDomainName() {
+    protected String getSpecialUserStoreDomainNames() {
 
-        return CustomCallbackUserstoreServiceComponent.REG_PROPERTY_USER_DOMAIN_VALUE;
+        return CustomCallbackUserstoreServiceComponent.REG_PROPERTY_USER_DOMAINS;
     }
 
-    protected String getSpecialSPPrefix() {
+    protected String getSpecialSP() {
 
-        return CustomCallbackUserstoreServiceComponent.REG_PROPERTY_SP_PREFIX_VALUE;
+        return CustomCallbackUserstoreServiceComponent.REG_PROPERTY_SP;
     }
 
 }

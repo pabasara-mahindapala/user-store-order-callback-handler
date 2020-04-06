@@ -52,26 +52,6 @@ public class RegistryBasedUserStoreOrderCallbackHandler extends SimpleUserStoreO
         super();
     }
 
-
-    protected String getSpecialUserStoreDomainName() {
-
-        String specialUserStoreDomain = getValueFromRegistry(CustomCallbackUserstoreServiceComponent.REG_PROPERTY_USER_DOMAIN);
-        if (StringUtils.isBlank(specialUserStoreDomain)) {
-            specialUserStoreDomain = super.getSpecialUserStoreDomainName();
-        }
-        return specialUserStoreDomain;
-    }
-
-    protected String getSpecialSPPrefix() {
-
-        String specialSPPrefix =
-                getValueFromRegistry(CustomCallbackUserstoreServiceComponent.REG_PROPERTY_SP_PREFIX);
-        if (StringUtils.isBlank(specialSPPrefix)) {
-            specialSPPrefix = super.getSpecialSPPrefix();
-        }
-        return specialSPPrefix;
-    }
-
     private String getValueFromRegistry(String resourcePropertyName) {
 
         String resourcePropertyValue = "";

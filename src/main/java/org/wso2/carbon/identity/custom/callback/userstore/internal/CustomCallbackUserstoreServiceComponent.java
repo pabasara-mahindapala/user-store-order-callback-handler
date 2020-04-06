@@ -53,10 +53,8 @@ public class CustomCallbackUserstoreServiceComponent {
     private static Log log = LogFactory.getLog(CustomCallbackUserstoreServiceComponent.class);
 
     public static final String REG_PATH = "userstore-metadata.xml";
-    public static final String REG_PROPERTY_SP_PREFIX = "specialSPPrefix";
-    public static final String REG_PROPERTY_SP_PREFIX_VALUE = "MF_";
-    public static final String REG_PROPERTY_USER_DOMAIN = "specialUserStoreDomainName";
-    public static final String REG_PROPERTY_USER_DOMAIN_VALUE = "MAINFRAME";
+    public static final String REG_PROPERTY_SP = "travelocity.com";
+    public static final String REG_PROPERTY_USER_DOMAINS = "PRIMARY,MANAGER,DRIVER";
 
 
     protected void activate(ComponentContext context) {
@@ -95,15 +93,13 @@ public class CustomCallbackUserstoreServiceComponent {
                 }
 
                 Resource metadata = new ResourceImpl();
-                metadata.setProperty(REG_PROPERTY_SP_PREFIX, REG_PROPERTY_SP_PREFIX_VALUE);
-                metadata.setProperty(REG_PROPERTY_USER_DOMAIN, REG_PROPERTY_USER_DOMAIN_VALUE);
+                metadata.setProperty(REG_PROPERTY_SP, REG_PROPERTY_USER_DOMAINS);
 
                 registry.put(REG_PATH, metadata);
 
                 if (log.isDebugEnabled()) {
                     log.debug("Userstore metadata registry resource created succesfully in path: " + REG_PATH +
-                            "with properties, "+ REG_PROPERTY_SP_PREFIX + ": " + REG_PROPERTY_SP_PREFIX_VALUE + ", " +
-                            REG_PROPERTY_USER_DOMAIN + ": " + REG_PROPERTY_USER_DOMAIN_VALUE);
+                            "with properties, "+ REG_PROPERTY_SP + ": " + REG_PROPERTY_USER_DOMAINS);
                 }
 
             } else {

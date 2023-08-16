@@ -85,18 +85,11 @@ public class SimpleUserStoreOrderCallbackHandler implements UserStorePreferenceO
 
         List<String> userStoreOrder = new ArrayList<String>();
 
-        String specialSP = getSpecialSP();
         String specialUserStoreDomainNames = getSpecialUserStoreDomainNames();
         String[] domains = specialUserStoreDomainNames.split(",");
-        if (StringUtils.equals(spName, specialSP)) {
-            for (String allowedDomain : domains) {
-                userStoreOrder.add(allowedDomain);
-            }
-        } else {
-            for (String domainName : domainNames) {
-                if (!Arrays.asList(domains).contains(domainName)) {
-                    userStoreOrder.add(domainName);
-                }
+        for (String domainName : domainNames) {
+            if (!Arrays.asList(domains).contains(domainName)) {
+                userStoreOrder.add(domainName);
             }
         }
 
@@ -142,11 +135,6 @@ public class SimpleUserStoreOrderCallbackHandler implements UserStorePreferenceO
     protected String getSpecialUserStoreDomainNames() {
 
         return CustomCallbackUserstoreServiceComponent.REG_PROPERTY_USER_DOMAINS;
-    }
-
-    protected String getSpecialSP() {
-
-        return CustomCallbackUserstoreServiceComponent.REG_PROPERTY_SP;
     }
 
 }

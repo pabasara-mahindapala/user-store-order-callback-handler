@@ -53,8 +53,8 @@ public class CustomCallbackUserstoreServiceComponent {
     private static Log log = LogFactory.getLog(CustomCallbackUserstoreServiceComponent.class);
 
     public static final String REG_PATH = "userstore-metadata.xml";
-    public static final String REG_PROPERTY_SP = "travelocity.com";
-    public static final String REG_PROPERTY_USER_DOMAINS = "PRIMARY,MANAGER,DRIVER";
+    public static final String REG_PROPERTY_SP = "";
+    public static final String REG_PROPERTY_USER_DOMAINS = "MANAGER";
 
 
     protected void activate(ComponentContext context) {
